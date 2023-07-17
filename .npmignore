@@ -1,0 +1,7 @@
+*.log
+.eslintrc
+node_modules
+.github
+.git
+*.lock
+scripts
