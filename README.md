@@ -7,36 +7,36 @@ Configuração padrão do eslint para os projetos.
 ### Javascript / Typescript / Node
 
 ```sh
-yarn add --dev @efeemeele/eslint-config eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-eslint-plugin eslint-plugin-import eslint-plugin-prettier eslint-plugin-unused-imports prettier
+yarn add --dev efeemeele-eslint-config eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-eslint-plugin eslint-plugin-import eslint-plugin-prettier eslint-plugin-unused-imports prettier
 ```
 
 ```js
 // .eslintrc
 {
-  "extends": ["@efeemeele/eslint-config"]
+  "extends": ["efeemeele-eslint-config"]
 }
 
 // .prettierrc.js
 module.exports = {
-  ...require('@efeemeele/eslint-config/.prettierrc')
+  ...require('efeemeele-eslint-config/.prettierrc')
 };
 ```
 
 ### React
 
 ```sh
-yarn add --dev @efeemeele/eslint-config eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-eslint-plugin eslint-plugin-import eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-unused-imports prettier
+yarn add --dev efeemeele-eslint-config eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-eslint-plugin eslint-plugin-import eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-unused-imports prettier
 ```
 
 ```js
 // .eslintrc
 {
-  "extends": ["@efeemeele/eslint-config/react"]
+  "extends": ["efeemeele-eslint-config/react"]
 }
 
 // .prettierrc.js
 module.exports = {
-  ...require('@efeemeele/eslint-config/.prettierrc')
+  ...require('efeemeele-eslint-config/.prettierrc')
 };
 ```
 
