@@ -1,7 +1,7 @@
 {
   "name": "efeemeele-eslint-config",
   "private": false,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "efeemeele Eslint Config",
   "author": "Fernando Moraes",
   "license": "MIT",
