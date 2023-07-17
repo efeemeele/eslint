@@ -4,6 +4,7 @@
   "version": "1.0.2",
   "description": "efeemeele Eslint Config",
   "author": "Fernando Moraes",
+  "keywords": ["eslint", "prettier", "js", "react"],
   "license": "MIT",
   "homepage": "https://github.com/efeemeele/eslint-config",
   "main": "index.js",
@@ -14,12 +15,6 @@
   "bugs": {
     "url": "https://github.com/efeemeele/eslint-config/issues"
   },
-  "scripts": {
-    "build": "yarn lint",
-    "lint": "eslint . --ext js,ts,tsx",
-    "update-deps": "yarn ncu -u"
-  },
-  "dependencies": {},
   "devDependencies": {
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.8.0",
@@ -29,6 +24,5 @@
     "eslint-plugin-unused-imports": "^3.0.0",
     "npm-check-updates": "^16.10.16",
     "prettier": "^3.0.0"
-  },
-  "peerDependencies": {}
+  }
 }
