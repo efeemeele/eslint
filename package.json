@@ -1,7 +1,7 @@
 {
   "name": "efeemeele-eslint-config",
   "private": false,
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "efeemeele Eslint Config",
   "author": "Fernando Moraes",
   "keywords": ["eslint", "prettier", "js", "react"],
