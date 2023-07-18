@@ -29,7 +29,7 @@ jobs:
 
   build:
     needs: [should-release]
-    if: needs.should-release.outputs.SKIP != 'true'
+    if: needs.should-release.outputs.SKIP_VERSION != 'true'
     permissions: write-all
     runs-on: ubuntu-latest
 
