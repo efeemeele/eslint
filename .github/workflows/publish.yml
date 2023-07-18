@@ -24,6 +24,7 @@ jobs:
         uses: PostHog/check-package-version@v2
 
     outputs:
+      CURRENT_VERSION: ${{ steps.cpv.outputs.committed-version }}
       SKIP_VERSION: ${{ steps.cpv.outputs.is-new-version }}
 
   build:
@@ -41,14 +42,6 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-
-      - name: Get current version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
-
-      - name: Current Version
-        id: package-version
-        run: echo 'CURRENT_VERSION='$(node -p -e "require('./package.json').version") >> $GITHUB_OUTPUT
 
       - name: Setup NPM Registry
         run: echo '//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}' > ~/.npmrc && npm config get registry
@@ -68,13 +61,13 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/v${{ steps.package-version.outputs.CURRENT_VERSION }}",
+              ref: "refs/tags/v${{ needs.should-release.outputs.CURRENT_VERSION }}",
               sha: context.sha
             })
 
       - name: Discord notification
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Nova versão publicada: `{{ EVENT_PAYLOAD.repository.full_name }}` - `v${{ steps.package-version.outputs.CURRENT_VERSION }}`.'
+          args: 'Nova versão publicada: `{{ EVENT_PAYLOAD.repository.full_name }}` - `v${{ needs.should-release.outputs.CURRENT_VERSION }}`.'
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
