@@ -7,7 +7,6 @@ on:
 
 jobs:
   should-release:
-    permissions: write-all
     runs-on: ubuntu-latest
 
     steps:
@@ -24,59 +23,58 @@ jobs:
         id: cpv
         uses: PostHog/check-package-version@v2
 
-      - name: Echo output
-        run: |
-          echo "Committed version: ${{ steps.cpv.outputs.committed-version }}"
-          echo "Published version: ${{ steps.cpv.outputs.published-version }}"
-          echo "Is new version: ${{ steps.cpv.outputs.is-new-version }}"
+    outputs:
+      SKIP_VERSION: ${{ steps.cpv.outputs.is-new-version }}
 
-  # build:
-  #   permissions: write-all
-  #   runs-on: ubuntu-latest
+  build:
+    needs: [should-release]
+    if: needs.should-release.outputs.SKIP != 'true'
+    permissions: write-all
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Clone project
-  #       uses: actions/checkout@v3
+    steps:
+      - name: Clone project
+        uses: actions/checkout@v3
 
-  #     - name: Setup Node Registry
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: '16.x'
-  #         registry-url: 'https://registry.npmjs.org'
+      - name: Setup Node Registry
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
 
-  #     - name: Get current version
-  #       id: package-version
-  #       uses: martinbeentjes/npm-get-version-action@v1.3.1
+      - name: Get current version
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
 
-  #     - name: Current Version
-  #       id: package-version
-  #       run: echo 'CURRENT_VERSION='$(node -p -e "require('./package.json').version") >> $GITHUB_OUTPUT
+      - name: Current Version
+        id: package-version
+        run: echo 'CURRENT_VERSION='$(node -p -e "require('./package.json').version") >> $GITHUB_OUTPUT
 
-  #     - name: Setup NPM Registry
-  #       run: echo '//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}' > ~/.npmrc && npm config get registry
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Setup NPM Registry
+        run: echo '//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}' > ~/.npmrc && npm config get registry
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  #     - name: Publish package
-  #       run: npm publish --access public
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish package
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  #     - name: Create tag
-  #       uses: actions/github-script@v6
-  #       with:
-  #         github-token: ${{ secrets.GITHUB_TOKEN }}
-  #         script: |
-  #           github.rest.git.createRef({
-  #             owner: context.repo.owner,
-  #             repo: context.repo.repo,
-  #             ref: "refs/tags/v${{ steps.package-version.outputs.CURRENT_VERSION }}",
-  #             sha: context.sha
-  #           })
+      - name: Create tag
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/v${{ steps.package-version.outputs.CURRENT_VERSION }}",
+              sha: context.sha
+            })
 
-  #     - name: Discord notification
-  #       uses: Ilshidur/action-discord@master
-  #       with:
-  #         args: 'Nova versão publicada: `{{ EVENT_PAYLOAD.repository.full_name }}` - `v${{ steps.package-version.outputs.CURRENT_VERSION }}`.'
-  #       env:
-  #         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Discord notification
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Nova versão publicada: `{{ EVENT_PAYLOAD.repository.full_name }}` - `v${{ steps.package-version.outputs.CURRENT_VERSION }}`.'
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
