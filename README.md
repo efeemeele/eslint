@@ -40,11 +40,7 @@ module.exports = {
 };
 ```
 
-## Configurações Extras
-
-### VSCode
-
-- Crie/Adicione no .vscode/settings.json (não na suas configurações, pois assim ficará no projeto e o time já terá acesso):
+## VSCode
 
 ```json
 {
