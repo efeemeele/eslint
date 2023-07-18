@@ -25,22 +25,15 @@ jobs:
 
     outputs:
       CURRENT_VERSION: ${{ steps.cpv.outputs.committed-version }}
-      SKIP_VERSION: ${{ steps.cpv.outputs.is-new-version }}
+      IS_NEW_VERSION: ${{ steps.cpv.outputs.is-new-version }}
 
   build:
     needs: [should-release]
-    if: needs.should-release.outputs.SKIP_VERSION != 'true'
+    if: needs.should-release.outputs.IS_NEW_VERSION == 'true'
     permissions: write-all
     runs-on: ubuntu-latest
 
     steps:
-      - name: Echo output
-        run: |
-          echo "Version: ${{ steps.cpv.outputs.CURRENT_VERSION }}"
-          echo "Version: ${{ needs.should-release.steps.cpv.outputs.CURRENT_VERSION }}"
-          echo "Version: ${{ needs.should-release.outputs.CURRENT_VERSION }}"
-          echo "${{ needs.should-release.outputs.SKIP_VERSION }}"
-
       - name: Clone project
         uses: actions/checkout@v3
 
