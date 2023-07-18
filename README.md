@@ -22,7 +22,7 @@ module.exports = {
 };
 ```
 
-### React
+### ReactJS
 
 ```sh
 yarn add --dev efeemeele-eslint-config eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-eslint-plugin eslint-plugin-import eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-unused-imports prettier
