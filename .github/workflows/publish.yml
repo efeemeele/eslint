@@ -37,7 +37,7 @@ jobs:
       - name: Echo output
         run: |
           echo "Version: ${{ steps.cpv.outputs.CURRENT_VERSION }}"
-          echo "Version: ${{ should-release.steps.cpv.outputs.CURRENT_VERSION }}"
+          echo "Version: ${{ needs.should-release.steps.cpv.outputs.CURRENT_VERSION }}"
           echo "Version: ${{ needs.should-release.outputs.CURRENT_VERSION }}"
           echo "${{ needs.should-release.outputs.SKIP_VERSION }}"
 
