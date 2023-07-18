@@ -22,8 +22,10 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > .npmrc
-          cat .npmrc
+          cat << EOF > "$HOME/.npmrc"
+            email=fermoraeslima10@gmail.com
+            //registry.npmjs.org/:_authToken=$NPM_TOKEN
+          EOF
 
       - name: Publish package
         env:
