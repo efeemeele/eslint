@@ -28,9 +28,13 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Get package version
+          id: package-version
+          uses: martinbeentjes/npm-get-version-action@v1.3.1
+
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Nova versão no projeto: {{ EVENT_PAYLOAD.repository.full_name }}.'
+          args: 'Nova versão no projeto: `{{ EVENT_PAYLOAD.repository.full_name }} - ${{ steps.package-version.outputs.current-version}}`.'
