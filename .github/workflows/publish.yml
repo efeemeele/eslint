@@ -29,8 +29,8 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Get package version
-          id: package-version
-          uses: martinbeentjes/npm-get-version-action@v1.3.1
+        id: package-version
+        uses: martinbeentjes/npm-get-version-action@v1.3.1
 
       - name: Discord notification
         env:
