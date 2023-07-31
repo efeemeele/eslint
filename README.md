@@ -13,12 +13,12 @@ yarn add --dev efeemeele-eslint-config eslint @typescript-eslint/eslint-plugin @
 ```js
 // .eslintrc
 {
-  "extends": ["efeemeele-eslint-config"]
+  "extends": ["./node_modules/efeemeele-eslint-config"]
 }
 
 // .prettierrc.js
 module.exports = {
-  ...require('efeemeele-eslint-config/.prettierrc')
+  ...require('./node_modules/efeemeele-eslint-config/.prettierrc')
 };
 ```
 
@@ -31,12 +31,12 @@ yarn add --dev efeemeele-eslint-config eslint @typescript-eslint/eslint-plugin @
 ```js
 // .eslintrc
 {
-  "extends": ["efeemeele-eslint-config/react"]
+  "extends": ["./node_modules/efeemeele-eslint-config/react"]
 }
 
 // .prettierrc.js
 module.exports = {
-  ...require('efeemeele-eslint-config/.prettierrc')
+  ...require('./node_modules/efeemeele-eslint-config/.prettierrc')
 };
 ```
 
