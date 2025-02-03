@@ -1,6 +1,6 @@
-module.exports = {
+export default {
   settings: {
-    'import/internal-regex': '(^@eduzz|react|^@nestjs|^~)'
+    'import/internal-regex': '(react|^@nestjs|^~)'
   },
   plugins: ['prettier', 'eslint-plugin-unused-imports'],
   extends: ['plugin:prettier/recommended', 'plugin:import/recommended', 'plugin:import/typescript'],
